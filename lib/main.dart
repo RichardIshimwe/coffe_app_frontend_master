@@ -1,3 +1,4 @@
+import 'package:coffee_master/datamanager.dart';
 import 'package:coffee_master/pages/menupage.dart';
 import 'package:coffee_master/pages/offerspage.dart';
 import 'package:coffee_master/pages/orederpage.dart';
@@ -66,6 +67,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  var dataManager = Datamanager();
   int _counter = 0;
   var selectedIndex = 0;
 
@@ -81,13 +83,13 @@ class _MyHomePageState extends State<MyHomePage> {
         const Text("This is a text widget with greetingsbbbb,,,,,,,,");
     switch (selectedIndex) {
       case 0:
-        currentWidget = const Menupage();
+        currentWidget =  Menupage(datamanager: dataManager,);
         break;
       case 1:
         currentWidget = const Offerspage();
         break;
       case 2:
-        currentWidget = const OrderPage();
+        currentWidget = OrderPage(datamanager: dataManager,);
         break;
       default:
         currentWidget = const Text("This is a texts selected");

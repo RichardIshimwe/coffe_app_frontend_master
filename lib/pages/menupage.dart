@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import '../datamodel.dart';
+import '../datamanager.dart';
 
 class Menupage extends StatelessWidget {
-  const Menupage({super.key});
+  final Datamanager datamanager;
+  const Menupage({super.key, required this.datamanager});
 
   @override
   Widget build(BuildContext context) {
@@ -11,13 +13,13 @@ class Menupage extends StatelessWidget {
     return ListView(
       children: [
         ProductItem(product: productExample , onAdd: () {
-          
+
         },),
         ProductItem(product: productExample , onAdd: () {
-          
+
         },),
         ProductItem(product: productExample , onAdd: () {
-          
+
         },),
       ],
     );

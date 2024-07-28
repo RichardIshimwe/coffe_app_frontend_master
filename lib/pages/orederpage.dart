@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
+import '../datamanager.dart';
+
 class  OrderPage extends StatelessWidget {
-  const OrderPage({super.key});
+  final Datamanager datamanager;
+  const OrderPage({super.key,required this.datamanager});
 
   @override
   Widget build(BuildContext context) {
