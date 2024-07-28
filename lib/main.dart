@@ -1,4 +1,6 @@
-import 'package:coffee_master/offerspage.dart';
+import 'package:coffee_master/pages/menupage.dart';
+import 'package:coffee_master/pages/offerspage.dart';
+import 'package:coffee_master/pages/orederpage.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -75,6 +77,22 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    Widget currentWidget =
+        const Text("This is a text widget with greetingsbbbb,,,,,,,,");
+    switch (selectedIndex) {
+      case 0:
+        currentWidget = const Menupage();
+        break;
+      case 1:
+        currentWidget = const Offerspage();
+        break;
+      case 2:
+        currentWidget = const OrderPage();
+        break;
+      default:
+        currentWidget = const Text("This is a texts selected");
+    }
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -85,6 +103,7 @@ class _MyHomePageState extends State<MyHomePage> {
         onTap: (value) => setState(() {
           selectedIndex = value;
           print("This is a selected index $value");
+          print("This is a selectedIndex $selectedIndex");
         }),
         backgroundColor: Theme.of(context).primaryColor,
         selectedItemColor: Colors.yellow.shade400,
@@ -98,8 +117,7 @@ class _MyHomePageState extends State<MyHomePage> {
               icon: Icon(Icons.shopping_cart_checkout_outlined)),
         ],
       ),
-      body:
-       Offerspage(),
+      body: currentWidget,
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
