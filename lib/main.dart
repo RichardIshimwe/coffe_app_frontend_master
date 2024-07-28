@@ -1,3 +1,4 @@
+import 'package:coffee_master/offerspage.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -17,7 +18,7 @@ class _GreetState extends State<Greet> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text("I am learning $name for the first time"),
+        Text("I am learning $name for the first time."),
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: TextField(
@@ -46,25 +47,25 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Coffee Masters',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.brown),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-  final String title;
+  const MyHomePage({super.key});
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  var selectedIndex = 0;
 
   void _incrementCounter() {
     setState(() {
@@ -77,9 +78,28 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
+        title: Center(child: Image.asset("images/logo.png")),
       ),
-      body: Greet(),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: selectedIndex,
+        onTap: (value) => setState(() {
+          selectedIndex = value;
+          print("This is a selected index $value");
+        }),
+        backgroundColor: Theme.of(context).primaryColor,
+        selectedItemColor: Colors.yellow.shade400,
+        unselectedItemColor: Colors.yellow.shade50,
+        items: const [
+          BottomNavigationBarItem(label: "Menu", icon: Icon(Icons.coffee)),
+          BottomNavigationBarItem(
+              label: "Offers", icon: Icon(Icons.local_offer)),
+          BottomNavigationBarItem(
+              label: "Orders",
+              icon: Icon(Icons.shopping_cart_checkout_outlined)),
+        ],
+      ),
+      body:
+       Offerspage(),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
