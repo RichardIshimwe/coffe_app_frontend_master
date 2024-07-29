@@ -10,18 +10,47 @@ class Menupage extends StatelessWidget {
   Widget build(BuildContext context) {
     var productExample =
         Product(id: 1, name: "Cappuccino", price: 3.9, image: "");
-    return ListView(
-      children: [
-        ProductItem(product: productExample , onAdd: () {
-
-        },),
-        ProductItem(product: productExample , onAdd: () {
-
-        },),
-        ProductItem(product: productExample , onAdd: () {
-
-        },),
-      ],
+    return FutureBuilder(
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          var categories = snapshot.data! as List<Category>;
+          // return Text("with length of ${categories.length} ");
+          return ListView.builder(
+              itemCount: categories.length,
+              itemBuilder: (context, index) {
+                return Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(categories[index].name),
+                    ),
+                    ListView.builder(
+                      shrinkWrap: true,
+                      physics: ClampingScrollPhysics(),
+                      itemCount: categories[index].products.length,
+                      itemBuilder: (context, productIndex) {
+                        var product = categories[index].products[productIndex];
+                        return ProductItem(
+                            product: product,
+                            onAdd: (addedProduct) {
+                              datamanager.cartAdd(addedProduct);
+                              print("added ${addedProduct.name}");
+                            });
+                      },
+                    )
+                  ],
+                );
+              });
+        } else {
+          if (snapshot.hasError) {
+            print(snapshot.error);
+            return const Text("there was an error while rendering data");
+          } else {
+            return Text("Loading...");
+          }
+        }
+      },
+      future: datamanager.getMenu(),
     );
   }
 }
@@ -41,7 +70,7 @@ class ProductItem extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image.asset("images/black_coffee.png"),
+            Image.network(product.imageUrl),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
