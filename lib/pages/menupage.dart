@@ -70,7 +70,12 @@ class ProductItem extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image.network(product.imageUrl),
+            SizedBox(
+                width: double.infinity,
+                child: Image.network(
+                  product.imageUrl,
+                  fit: BoxFit.cover,
+                )),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -93,10 +98,19 @@ class ProductItem extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(right: 8.0),
                   child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      backgroundColor: Colors.brown[800],
+                    ),
                     onPressed: () {
                       onAdd(product);
                     },
-                    child: const Text("Add"),
+                    child: const Text(
+                      "Add",
+                      style: TextStyle(color: Colors.white),
+                    ),
                   ),
                 )
               ],
