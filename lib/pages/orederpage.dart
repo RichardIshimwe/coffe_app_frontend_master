@@ -59,8 +59,8 @@ class OrderItem extends StatelessWidget {
                 )),
             Expanded(
                 flex: 2,
-                child: Text("\$" +
-                    (item.product.price * item.quantity).toStringAsFixed(2))),
+                child: Text(
+                    "\$${(item.product.price * item.quantity).toStringAsFixed(2)}")),
             Expanded(
                 flex: 1,
                 child: IconButton(
