@@ -28,18 +28,14 @@ class Datamanager {
   }
 
   cartAdd(Product p) {
-    print("cartAdd function called");
     bool found = false;
     for (var item in cart) {
-      print("item.product.id ${item.product.id}");
       if (item.product.id == p.id) {
         item.quantity++;
-        print("incremented existing item");
         found = true;
       }
     }
     if (!found) {
-      print("added new item");
       cart.add(ItemInCart(product: p, quantity: 1));
     }
   }
